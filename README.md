@@ -49,7 +49,7 @@ O projeto segue princípios de **SOLID** e utiliza padrões de projeto:
 
  - Rodar o docker 
    ```bash
-   compose up --build 
+   docker compose up --build 
  
  - Ou para versão anterior 
    ```bash
