@@ -13,6 +13,13 @@ use App\Tax\TaxCalculator;
 
 class ProductCalculatorTest extends TestCase
 {
+    private $taxConfig;
+
+    public function setUp(): void
+    {
+        $this->taxConfig = require __DIR__ . '/../config/taxes.php';
+    }
+
     public function testCalculateWithVarejoCustomerAndWeight(): void
     {
         $repository = new CalculationRepositoryMock();
@@ -24,7 +31,7 @@ class ProductCalculatorTest extends TestCase
                 new CustomerDiscountStrategy()
             ],
             new WeightSurchargeStrategy(),
-            new TaxCalculator([new IcmsTaxStrategy(['SP' => 0.1])]),
+            new TaxCalculator([new IcmsTaxStrategy($this->taxConfig['icms'])]),
             $cache,
             $repository
         );
@@ -51,7 +58,7 @@ class ProductCalculatorTest extends TestCase
         $calculator = new ProductCalculator(
             [new QuantityDiscountStrategy()],
             new WeightSurchargeStrategy(),
-            new TaxCalculator([new IcmsTaxStrategy(['SP' => 0.1])]),
+            new TaxCalculator([new IcmsTaxStrategy($this->taxConfig['icms'])]),
             $cache,
             $repository
         );
