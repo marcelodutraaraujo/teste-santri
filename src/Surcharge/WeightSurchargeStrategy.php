@@ -4,11 +4,18 @@ declare(strict_types=1);
 namespace App\Surcharge;
 
 use App\Calculator\PriceContext;
+use App\Surcharge\SurchargeStrategyInterface;
 
-class WeightSurchargeStrategy
+class WeightSurchargeStrategy implements SurchargeStrategyInterface
 {
+    private const SURCHARGE_VALUE = 15.00;
+
     public function apply(float $price, PriceContext $context): float
     {
-        return $context->weight > 50 ? $price + 15 : $price;
+        if ( $context->weight > 50 ) {
+            return $price + self::SURCHARGE_VALUE;
+        }
+
+        return $price;
     }
 }
