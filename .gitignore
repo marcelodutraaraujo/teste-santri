@@ -1,0 +1,3 @@
+# nao subir a parta vendor
+/vendor
+/.phpunit.cache
