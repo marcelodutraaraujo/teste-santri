@@ -1,9 +1,15 @@
 <?php
 declare(strict_types=1);
 
+/* 
+    Arquivo fora de uso pois so depois percebi que poderiam ser usadas outras taxas
+    logo criei a interface TaxStrategyInterface para novas taxas possam ser adicionadas
+*/
+
 namespace App\Tax;
 
 use App\Calculator\PriceContext;
+use App\Exception\InvalidStateException;
 
 class StateTaxStrategy
 {
@@ -40,6 +46,11 @@ class StateTaxStrategy
 
     public function apply(float $price, PriceContext $context): float
     {
+        
+        if (!array_key_exists($context->state, $this->taxes)) {
+            throw new InvalidStateException();
+        }
+    
         $rate = $this->taxes[$context->state] ?? 0;
         return $price * (1 + $rate);
     }
