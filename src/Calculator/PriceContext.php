@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Calculator;
 
+use App\Exception\InvalidWeightException;
+use App\Exception\InvalidQuantityException;
+
 class PriceContext
 {
     public function __construct(
@@ -11,7 +14,20 @@ class PriceContext
         public string $customerType,
         public float $weight,
         public string $state,
-    ) {}
+    ) {
+        $this->validate();
+    }
+
+    private function validate(): void
+    {
+        if ($this->quantity < 0) {
+            throw new InvalidQuantityException();
+        }
+
+        if ($this->weight < 0) {
+            throw new InvalidWeightException();
+        }
+    }
 
     public function cacheKey(): string
     {

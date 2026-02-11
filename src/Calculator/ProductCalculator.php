@@ -8,14 +8,14 @@ use App\Repository\CalculationRepository;
 use App\Discount\DiscountStrategyInterface;
 use App\Repository\CalculationRepositoryInterface;
 use App\Surcharge\WeightSurchargeStrategy;
-use App\Tax\StateTaxStrategy;
+use App\Tax\TaxCalculator;
 
 class ProductCalculator
 {
     public function __construct(
         private array $discounts,
         private WeightSurchargeStrategy $surcharge,
-        private StateTaxStrategy $tax,
+        private TaxCalculator $taxCalculator,
         private CacheInterface $cache,
         private CalculationRepositoryInterface $repository
     ) {}
@@ -38,7 +38,7 @@ class ProductCalculator
         }
 
         $price = $this->surcharge->apply($price, $context);
-        $price = $this->tax->apply($price, $context);
+        $price = $this->taxCalculator->apply($price, $context);
 
         $this->repository->save($context, $price);
         $this->cache->set($cacheKey, $price);

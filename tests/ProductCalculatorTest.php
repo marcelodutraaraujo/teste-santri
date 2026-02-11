@@ -7,6 +7,9 @@ use App\Discount\{QuantityDiscountStrategy, CustomerDiscountStrategy};
 use App\Surcharge\WeightSurchargeStrategy;
 use App\Tax\StateTaxStrategy;
 use Tests\Mocks\{FakeCache, CalculationRepositoryMock}; 
+use App\Exception\{InvalidQuantityException};
+use App\Tax\IcmsTaxStrategy;
+use App\Tax\TaxCalculator;
 
 class ProductCalculatorTest extends TestCase
 {
@@ -21,7 +24,7 @@ class ProductCalculatorTest extends TestCase
                 new CustomerDiscountStrategy()
             ],
             new WeightSurchargeStrategy(),
-            new StateTaxStrategy(),
+            new TaxCalculator([new IcmsTaxStrategy(['SP' => 0.1])]),
             $cache,
             $repository
         );
@@ -48,7 +51,7 @@ class ProductCalculatorTest extends TestCase
         $calculator = new ProductCalculator(
             [new QuantityDiscountStrategy()],
             new WeightSurchargeStrategy(),
-            new StateTaxStrategy(),
+            new TaxCalculator([new IcmsTaxStrategy(['SP' => 0.1])]),
             $cache,
             $repository
         );
@@ -60,4 +63,18 @@ class ProductCalculatorTest extends TestCase
 
         $this->assertCount(1, $repository->savedData);
     }
+
+    public function testThrowsExceptionForInvalidQuantity(): void
+    {
+        $this->expectException(InvalidQuantityException::class);
+
+        new PriceContext(
+            basePrice: 100,
+            quantity: -1,
+            customerType: 'regular',
+            weight: 10,
+            state: 'SP'
+        );
+    }
+
 }
