@@ -25,7 +25,11 @@ class PriceContext
 
     private function validate(): void
     {
-        if ($this->basePrice < 0) {
+        if ($this->basePrice < 0 ) {
+            throw new InvalidBasePriceException();
+        }
+
+        if (!filter_var($this->basePrice, FILTER_VALIDATE_FLOAT)) {
             throw new InvalidBasePriceException();
         }
 
@@ -33,7 +37,15 @@ class PriceContext
             throw new InvalidQuantityException();
         }
 
+        if (!filter_var($this->quantity, FILTER_VALIDATE_INT)) {
+            throw new InvalidQuantityException();
+        }
+
         if ($this->weight < 0) {
+            throw new InvalidWeightException();
+        }
+
+        if (!filter_var($this->weight, FILTER_VALIDATE_FLOAT)) {
             throw new InvalidWeightException();
         }
 
@@ -44,6 +56,11 @@ class PriceContext
         if ($this->marginValue < 0) {
             throw new InvalidMarginValueException();
         }
+
+        if (!filter_var($this->marginValue, FILTER_VALIDATE_FLOAT)) {
+            throw new InvalidMarginValueException();
+        }
+
     }
 
     public function cacheKey(): string
