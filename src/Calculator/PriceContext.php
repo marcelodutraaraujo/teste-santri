@@ -5,6 +5,8 @@ namespace App\Calculator;
 
 use App\Exception\InvalidWeightException;
 use App\Exception\InvalidQuantityException;
+use App\Exception\InvalidMarginTypeException;
+use App\Exception\InvalidMarginValueException;
 
 class PriceContext
 {
@@ -28,6 +30,14 @@ class PriceContext
 
         if ($this->weight < 0) {
             throw new InvalidWeightException();
+        }
+
+        if ($this->marginType !== 'fixed' && $this->marginType !== 'percentage') {
+            throw new InvalidMarginTypeException();
+        }
+
+        if ($this->marginValue < 0) {
+            throw new InvalidMarginValueException();
         }
     }
 
