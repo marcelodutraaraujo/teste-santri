@@ -58,12 +58,12 @@ O projeto segue princípios de **SOLID** e utiliza padrões de projeto:
 ## Bancod de Dados MySQL 
 
  - Rodar o comando para entrar no banco
-  ```bash
-  docker exec -it mysql-calculator mysql -uroot -proot calculator
+   ```bash
+   docker exec -it mysql-calculator mysql -uroot -proot calculator
 
 - Rodar o comando para criar a tabela 
    ```bash
-  CREATE TABLE price_calculations (
+   CREATE TABLE price_calculations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     base_price DECIMAL(10,2),
     margin_type VARCHAR(100),
@@ -74,7 +74,7 @@ O projeto segue princípios de **SOLID** e utiliza padrões de projeto:
     state VARCHAR(2),
     final_price DECIMAL(10,2),
     created_at DATETIME
-  );
+   );
 
 ## Servidor 
 
@@ -86,15 +86,17 @@ http://localhost:8080
 /api/calculate - method POST
 
 - Formato do body a ser enviado na requisição no formato JSON
-{
-  "basePrice": 50,
-  "marginType": "fixed",
-	"marginValue": 50,
-  "quantity": 100,
-  "customerType": "varejo",
-  "weight": 60,
-  "state": "SP"
-}
+  ```bash
+  {
+    "basePrice": 50,
+    "marginType": "fixed",
+    "marginValue": 50,
+    "quantity": 100,
+    "customerType": "varejo",
+    "weight": 60,
+    "state": "SP"
+  }
+
 
 #### OBS.: 
  - basePrice (Preço base do produto)
