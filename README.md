@@ -58,8 +58,8 @@ O projeto segue princípios de **SOLID** e utiliza padrões de projeto:
 ## Bancod de Dados MySQL 
 
  - Rodar o comando para entrar no banco
-   ```bash
- docker exec -it mysql-calculator mysql -uroot -proot calculator
+  ```bash
+  docker exec -it mysql-calculator mysql -uroot -proot calculator
 
 - Rodar o comando para criar a tabela 
    ```bash
