@@ -27,7 +27,7 @@ if ($method === 'POST' && $uri === '/api/calculate') {
 
     if (!$data) {
         http_response_code(400);
-        echo json_encode(['error' => 'JSON inválido']);
+        echo json_encode(['error' => 'JSON inválido, verifique a documentação sobre o formato de entrada']);
         exit;
     }
 

@@ -7,6 +7,7 @@ use App\Exception\InvalidWeightException;
 use App\Exception\InvalidQuantityException;
 use App\Exception\InvalidMarginTypeException;
 use App\Exception\InvalidMarginValueException;
+use App\Exception\InvalidBasePriceException;
 
 class PriceContext
 {
@@ -24,6 +25,10 @@ class PriceContext
 
     private function validate(): void
     {
+        if ($this->basePrice < 0) {
+            throw new InvalidBasePriceException();
+        }
+
         if ($this->quantity < 0) {
             throw new InvalidQuantityException();
         }
