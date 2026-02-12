@@ -10,12 +10,14 @@ class PriceContext
 {
     public function __construct(
         public float $basePrice,
+        public string $marginType,
+        public float $marginValue,
         public int $quantity,
         public string $customerType,
         public float $weight,
         public string $state,
     ) {
-        $this->validate();
+        $this->validate(); 
     }
 
     private function validate(): void
@@ -33,6 +35,8 @@ class PriceContext
     {
         return md5(json_encode([
             $this->basePrice,
+            $this->marginType,
+            $this->marginValue,
             $this->quantity,
             $this->customerType,
             $this->weight,

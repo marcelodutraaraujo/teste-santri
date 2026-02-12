@@ -15,12 +15,14 @@ class CalculationRepository implements CalculationRepositoryInterface
     {
         $stmt = $this->pdo->prepare(
             'INSERT INTO price_calculations 
-            (base_price, quantity, customer_type, weight, state, final_price, created_at)
-            VALUES (:base_price, :quantity, :customer_type, :weight, :state, :final_price, NOW())'
+            (base_price, margin_type, margin_value, quantity, customer_type, weight, state, final_price, created_at)
+            VALUES (:base_price, :margin_type, :margin_value, :quantity, :customer_type, :weight, :state, :final_price, NOW())'
         );
 
         $stmt->execute([
             'base_price' => $context->basePrice,
+            'margin_type' => $context->marginType,
+            'margin_value' => $context->marginValue,
             'quantity' => $context->quantity,
             'customer_type' => $context->customerType,
             'weight' => $context->weight,

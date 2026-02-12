@@ -9,10 +9,12 @@ use App\Discount\DiscountStrategyInterface;
 use App\Repository\CalculationRepositoryInterface;
 use App\Surcharge\WeightSurchargeStrategy;
 use App\Tax\TaxCalculator;
+use App\Margin\MarginStrategyInterface;
 
 class ProductCalculator
 {
     public function __construct(
+        private MarginStrategyInterface $margin,
         private array $discounts,
         private WeightSurchargeStrategy $surcharge,
         private TaxCalculator $taxCalculator,
@@ -32,6 +34,8 @@ class ProductCalculator
         }
 
         $price = $context->basePrice * $context->quantity;
+
+        $price = $this->margin->apply($price);
 
         foreach ($this->discounts as $discount) {
             $price = $discount->apply($price, $context);

@@ -55,6 +55,27 @@ O projeto segue princípios de **SOLID** e utiliza padrões de projeto:
    ```bash
    docker-compose up --build
 
+## Bancod de Dados MySQL 
+
+ - Rodar o comando para entrar no banco
+   ```bash
+ docker exec -it mysql-calculator mysql -uroot -proot calculator
+
+- Rodar o comando para criar a tabela 
+   ```bash
+  CREATE TABLE price_calculations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    base_price DECIMAL(10,2),
+    margin_type VARCHAR(100),
+    margin_value DECIMAL(10,2),
+    quantity INT,
+    customer_type VARCHAR(50),
+    weight DECIMAL(10,2),
+    state VARCHAR(2),
+    final_price DECIMAL(10,2),
+    created_at DATETIME
+  );
+
 ## Servidor 
 
 ### Endereço de acesso 
@@ -67,6 +88,8 @@ http://localhost:8080
 - Formato do body a ser enviado na requisição no formato JSON
 {
   "basePrice": 50,
+  "marginType": "fixed",
+	"marginValue": 50,
   "quantity": 100,
   "customerType": "varejo",
   "weight": 60,
@@ -75,6 +98,8 @@ http://localhost:8080
 
 #### OBS.: 
  - basePrice (Preço base do produto)
+ - marginType (tipo de margem: fixed ou percentage )
+ - marginValue (valor relacionado ao tipo de margem de lucro adicionada)
  - quantity (quantidade)
  - customerType (tipo de cliente para desconto ex: varejo, atacado, revendedor)
  - weight (acrescimo por peso)
