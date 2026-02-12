@@ -45,7 +45,7 @@ O projeto segue princípios de **SOLID** e utiliza padrões de projeto:
 
 ## Como rodar o projeto
 
-### Subir os containers ja pre' definidos no arquivo do docker composer
+### Subir os containers ja pré definidos no arquivo do docker composer
 
  - Rodar o docker 
    ```bash
@@ -55,7 +55,7 @@ O projeto segue princípios de **SOLID** e utiliza padrões de projeto:
    ```bash
    docker-compose up --build
 
-## Bancod de Dados MySQL 
+## Banco de Dados MySQL 
 
  - Rodar o comando para entrar no banco
    ```bash
